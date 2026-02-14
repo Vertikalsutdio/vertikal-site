@@ -241,6 +241,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav-links a:hover { color: var(--charcoal); }
 .nav-links a:hover::after { width: 100%; }
 
+.nav-links a.nav-cta {
+  color: var(--white) !important;
+}
+.nav-links a.nav-cta::after { display: none; }
+.nav-links a.nav-cta:hover { color: var(--white) !important; }
+
 .nav-cta {
   font-family: 'Sora', sans-serif;
   font-weight: 600;
