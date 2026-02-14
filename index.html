@@ -247,18 +247,34 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: 13px;
   padding: 10px 22px;
   border-radius: var(--radius-sm);
-  background: var(--charcoal);
+  background: var(--bottle);
   color: var(--white);
   transition: all var(--transition);
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  box-shadow: 0 2px 8px rgba(20,83,45,0.15);
 }
 
 .nav-cta:hover {
-  background: var(--bottle);
-  box-shadow: 0 4px 16px rgba(20,83,45,0.2);
+  background: var(--bottle-deep);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(20,83,45,0.25);
   transform: translateY(-1px);
+}
+
+.nav-cta-mobile {
+  display: none;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bottle);
+  color: var(--white);
+  transition: all var(--transition);
+  align-items: center;
+  white-space: nowrap;
 }
 
 /* Mobile nav */
@@ -304,6 +320,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @media (max-width: 860px) {
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
+  .nav-cta-mobile { display: inline-flex; }
 }
 
 /* ===== BUTTONS ===== */
@@ -1414,31 +1431,72 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 3.5rem 1.5rem 3rem; }
-  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 3.5rem 1.5rem 2.5rem; }
+  .hero-h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); letter-spacing: -1px; line-height: 1.12; }
+  .hero-sub { margin-left: auto; margin-right: auto; font-size: 15px; max-width: 380px; }
   .hero-ctas { justify-content: center; }
   .hero-trust { justify-content: center; }
+  .hero-badge { font-size: 10px; }
   .phone-grid { margin-top: 2rem; }
+  .phone-grid .phone:nth-child(1),
+  .phone-grid .phone:nth-child(3) { width: 110px !important; margin-bottom: 1.5rem !important; }
+  .phone-grid .phone:nth-child(2) { width: 150px !important; }
   .steps-grid { grid-template-columns: 1fr; }
   .included-grid { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
   .agency-card { grid-template-columns: 1fr; }
   .agency-left { padding: 2.5rem 2rem; }
   .agency-right { padding: 0 2rem 2.5rem; }
+  .agency-h2 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
   .testi-grid { grid-template-columns: 1fr; }
   .testi-mini-phone { display: none; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
-  .proof-inner { gap: 2rem; }
-  .guarantee-inner { gap: 1.5rem; }
+  .proof-inner { gap: 1.5rem; }
+  .proof-num { font-size: 1.3rem; }
+  .guarantee-inner { gap: 1.25rem; font-size: 12px; }
+  .section-h2 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+  .section-sub { font-size: 14px; }
+  .how-section, .portfolio-section, .included-section, .pricing-section, .agency-section, .testi-section, .faq-section, .final-cta-section { padding: 4rem 1.5rem; }
 }
 
 @media (max-width: 600px) {
+  .hero-inner { padding: 2.5rem 1.25rem 2rem; }
+  .hero-h1 { font-size: clamp(1.6rem, 8vw, 2.2rem); margin-bottom: 1rem; }
+  .hero-sub { font-size: 14px; margin-bottom: 1.5rem; }
+  .phone-grid { gap: 0.4rem; }
+  .phone-grid .phone:nth-child(1),
+  .phone-grid .phone:nth-child(3) { width: 90px !important; margin-bottom: 1rem !important; }
+  .phone-grid .phone:nth-child(2) { width: 120px !important; }
+  .phone { border-width: 2px; border-radius: 16px; }
+  .phone-notch { width: 40px; height: 14px; border-radius: 0 0 8px 8px; }
   .included-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-  .phone-grid { gap: 0.5rem; }
-  .phone { border-width: 2px; border-radius: 16px; }
-  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; font-size: 14px; padding: 12px 24px; }
+  .nav-inner { padding: 0 1rem; height: 56px; }
+  .nav-logo { font-size: 18px; }
+  .hero { padding-top: 56px; }
+  .proof-inner { gap: 1rem; }
+  .proof-stat { min-width: 70px; }
+  .proof-num { font-size: 1.1rem; }
+  .proof-label { font-size: 8px; }
+  .proof-divider { height: 24px; }
+  .guarantee-inner { gap: 1rem; }
+  .guarantee-item { font-size: 11px; gap: 6px; }
+  .guarantee-icon { width: 16px; height: 16px; }
+  .final-h2 { font-size: clamp(1.4rem, 6vw, 2rem); }
+  .final-p { font-size: 14px; }
+  .how-section, .portfolio-section, .included-section, .pricing-section, .agency-section, .testi-section, .faq-section, .final-cta-section { padding: 3rem 1.25rem; }
+}
+
+@media (max-width: 380px) {
+  .hero-h1 { font-size: 1.5rem; }
+  .phone-grid .phone:nth-child(1),
+  .phone-grid .phone:nth-child(3) { width: 75px !important; }
+  .phone-grid .phone:nth-child(2) { width: 100px !important; }
+  .proof-inner { flex-direction: column; gap: 0.75rem; }
+  .proof-divider { width: 40px; height: 1px; }
+  .guarantee-inner { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
@@ -1455,9 +1513,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <a href="#faq">FAQ</a>
       <a href="#pricing" class="nav-cta">Réservez votre call</a>
     </div>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="#pricing" class="nav-cta-mobile">Réservez votre call</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -1467,7 +1528,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <a href="#pricing" onclick="closeMobile()">Tarifs</a>
   <a href="#agencies" onclick="closeMobile()">Agences</a>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
-  <a href="#pricing" class="btn-primary" style="margin-top:1rem;text-align:center;justify-content:center;" onclick="closeMobile()">Réservez votre call</a>
+  <a href="#pricing" style="margin-top:1rem;text-align:center;justify-content:center;display:inline-flex;padding:14px 28px;border-radius:10px;background:var(--bottle);color:var(--white);font-family:'Sora',sans-serif;font-weight:600;font-size:15px;" onclick="closeMobile()">Réservez votre call</a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -1795,7 +1856,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="pc-name">Flow</div>
             <div class="pc-desc">Cadence maîtrisée, qualité constante</div>
             <div class="pc-price">1 490€ <span>/mois</span></div>
-            <div class="pc-per">~25-35 vidéos/mois · Soit ~50€/vidéo</div>
+            <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
               <li>5 vidéos + variantes par batch</li>
               <li>Hooks + itérations + formats</li>
@@ -1813,7 +1874,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="pc-name">Velocity</div>
             <div class="pc-desc">Volume accru, itérations créatives</div>
             <div class="pc-price">2 490€ <span>/mois</span></div>
-            <div class="pc-per">~30-45 vidéos/mois · Soit ~65€/vidéo</div>
+            <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
               <li>10 vidéos + variantes par batch</li>
               <li>Hooks + itérations + formats</li>
@@ -1831,7 +1892,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="pc-name">Unlimited</div>
             <div class="pc-desc">Volume élevé, scaling ads + organique</div>
             <div class="pc-price">3 990€ <span>/mois</span></div>
-            <div class="pc-per">~45-65 vidéos/mois · Soit ~65€/vidéo</div>
+            <div class="pc-per">3 mois recommandé</div>
             <ul class="pc-features">
               <li>20 vidéos + variantes par batch</li>
               <li>Hooks + itérations + formats</li>
@@ -1839,7 +1900,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               <li>Retours illimités</li>
               <li>Délai : 8-10 jours ouvrés</li>
               <li>Garantie Flexibilité</li>
-              <li>3 mois recommandé</li>
             </ul>
             <button class="pc-cta outline">Réservez votre call</button>
           </div>
@@ -1856,7 +1916,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <div class="pc-name">Pack Découverte</div>
             <div class="pc-desc">10 créas pour tester la puissance Vertikal</div>
             <div class="pc-price">790€ <span>HT</span></div>
-            <div class="pc-per">Soit 79€/vidéo · Sans engagement</div>
+            <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
               <li>10 vidéos + variantes</li>
               <li>Hooks alternatifs inclus</li>
