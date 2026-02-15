@@ -198,7 +198,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-items: center;
   justify-content: space-between;
   height: 64px;
-  padding: 0 2rem;
+  padding: 0 0.5rem 0 2rem;
 }
 
 .nav-logo {
@@ -817,6 +817,87 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-transform: uppercase;
   color: var(--warm-gray);
   margin-top: 2px;
+}
+
+.frameio-embed {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+}
+
+.frameio-embed iframe {
+  display: block;
+}
+
+.phone-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 8;
+}
+
+.phone-video[src=""] { display: none; }
+.phone-video:not([src=""]) + .phone-placeholder { display: none; }
+
+/* ===== VIDEO MODAL ===== */
+.video-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.video-modal.active {
+  display: flex;
+}
+
+.video-modal-phone {
+  width: 300px;
+  max-width: 85vw;
+  border-radius: 36px;
+  border: 4px solid #333;
+  background: #000;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  cursor: default;
+}
+
+.video-modal-phone video {
+  width: 100%;
+  aspect-ratio: 9/16;
+  display: block;
+  object-fit: cover;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10000;
+}
+
+.video-modal-close:hover {
+  background: rgba(255,255,255,0.2);
 }
 
 /* ===== INCLUDED ===== */
@@ -1469,6 +1550,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .hero-h1 { font-size: clamp(1.6rem, 8vw, 2.2rem); margin-bottom: 1rem; }
   .hero-sub { font-size: 14px; margin-bottom: 1.5rem; }
   .hero-logo { height: 36px; }
+  .frameio-embed iframe { height: 400px; }
   .hero-logos-row { gap: 1rem; }
   .phone-grid { gap: 0.4rem; }
   .phone-grid .phone:nth-child(1),
@@ -1568,27 +1650,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <!-- Phone 1 — small -->
       <div class="phone" style="width: 145px; margin-bottom: 2rem;">
         <div class="phone-notch"></div>
-        <div class="phone-screen" style="background: #0A0A0A;">
-          <div class="phone-scanline"></div>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;z-index:10;">
-            <div style="padding:16px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.7));">
-              <div style="font-family:'Space Mono';font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bottle-light);margin-bottom:4px;">Hook v1</div>
-              <div style="display:flex;gap:1px;height:12px;align-items:center;">
-                <div style="flex:1;height:30%;background:var(--bottle-light);border-radius:1px;opacity:0.5;"></div>
-                <div style="flex:1;height:60%;background:var(--bottle-light);border-radius:1px;opacity:0.7;"></div>
-                <div style="flex:1;height:90%;background:var(--bottle-light);border-radius:1px;"></div>
-                <div style="flex:1;height:50%;background:var(--bottle-light);border-radius:1px;opacity:0.6;"></div>
-                <div style="flex:1;height:70%;background:var(--bottle-light);border-radius:1px;opacity:0.8;"></div>
-                <div style="flex:1;height:40%;background:var(--bottle-light);border-radius:1px;opacity:0.5;"></div>
-                <div style="flex:1;height:80%;background:var(--bottle-light);border-radius:1px;opacity:0.9;"></div>
-                <div style="flex:1;height:35%;background:var(--bottle-light);border-radius:1px;opacity:0.4;"></div>
-              </div>
-            </div>
-          </div>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:11;opacity:0.4;">
-            <circle cx="16" cy="16" r="15" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-            <polygon points="12,9 12,23 24,16" fill="rgba(255,255,255,0.5)"/>
-          </svg>
+        <div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166407/372_H3_1_ossw7u.mp4')">
+          <video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166407/372_H3_1_ossw7u.mp4" muted autoplay loop playsinline></video>
           <div style="position:absolute;top:8px;right:8px;z-index:11;"><span class="phone-overlay-tag">9:16</span></div>
         </div>
         <div class="phone-home"></div>
@@ -1597,48 +1660,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <!-- Phone 2 — main -->
       <div class="phone" style="width: 190px;">
         <div class="phone-notch"></div>
-        <div class="phone-screen" style="background: #0F0F0F;">
-          <div class="phone-scanline" style="animation-delay:-1.5s;"></div>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;z-index:10;">
-            <div style="padding:8px 12px;display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-family:'Space Mono';font-size:7px;letter-spacing:1px;color:var(--bottle-light);">● REC</span>
-              <span style="font-family:'Space Mono';font-size:7px;color:rgba(255,255,255,0.3);">00:00:32:08</span>
-            </div>
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;">
-              <div style="text-align:center;">
-                <svg width="44" height="44" viewBox="0 0 44 44" fill="none" style="opacity:0.15;margin-bottom:8px;">
-                  <rect x="12" y="4" width="20" height="36" rx="2" stroke="white" stroke-width="1.5"/>
-                  <polygon points="19,18 19,26 26,22" fill="white"/>
-                </svg>
-                <div style="font-family:'Space Mono';font-size:7px;letter-spacing:2px;color:rgba(255,255,255,0.15);text-transform:uppercase;">Vidéo placeholder</div>
-              </div>
-            </div>
-            <div style="padding:0 12px 14px;">
-              <div style="display:flex;gap:2px;height:22px;margin-bottom:8px;">
-                <div style="flex:3;background:var(--bottle);border-radius:3px;display:flex;align-items:center;justify-content:center;">
-                  <span style="font-family:'Space Mono';font-size:6px;letter-spacing:1px;color:#FFF;text-transform:uppercase;">Hook</span>
-                </div>
-                <div style="flex:5;background:var(--bottle);opacity:0.45;border-radius:3px;display:flex;align-items:center;justify-content:center;">
-                  <span style="font-family:'Space Mono';font-size:6px;letter-spacing:1px;color:#FFF;text-transform:uppercase;">Body</span>
-                </div>
-                <div style="flex:2;background:var(--bottle);opacity:0.25;border-radius:3px;display:flex;align-items:center;justify-content:center;">
-                  <span style="font-family:'Space Mono';font-size:6px;letter-spacing:1px;color:#FFF;text-transform:uppercase;">CTA</span>
-                </div>
-              </div>
-              <div style="display:flex;gap:1px;height:14px;align-items:center;">
-                <div style="flex:1;height:25%;background:var(--bottle-light);border-radius:1px;opacity:0.4;"></div>
-                <div style="flex:1;height:50%;background:var(--bottle-light);border-radius:1px;opacity:0.5;"></div>
-                <div style="flex:1;height:75%;background:var(--bottle-light);border-radius:1px;opacity:0.7;"></div>
-                <div style="flex:1;height:45%;background:var(--bottle-light);border-radius:1px;opacity:0.5;"></div>
-                <div style="flex:1;height:90%;background:var(--bottle-light);border-radius:1px;opacity:0.9;"></div>
-                <div style="flex:1;height:60%;background:var(--bottle-light);border-radius:1px;opacity:0.6;"></div>
-                <div style="flex:1;height:80%;background:var(--bottle-light);border-radius:1px;opacity:0.8;"></div>
-                <div style="flex:1;height:35%;background:var(--bottle-light);border-radius:1px;opacity:0.4;"></div>
-                <div style="flex:1;height:65%;background:var(--bottle-light);border-radius:1px;opacity:0.7;"></div>
-                <div style="flex:1;height:40%;background:var(--bottle-light);border-radius:1px;opacity:0.5;"></div>
-              </div>
-            </div>
-          </div>
+        <div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166393/jeux_du_Q4_tmstpf.mp4')">
+          <video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166393/jeux_du_Q4_tmstpf.mp4" muted autoplay loop playsinline></video>
         </div>
         <div class="phone-home"></div>
       </div>
@@ -1646,28 +1669,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <!-- Phone 3 — small -->
       <div class="phone" style="width: 145px; margin-bottom: 2rem;">
         <div class="phone-notch"></div>
-        <div class="phone-screen" style="background: #0A0A0A;">
-          <div class="phone-scanline" style="animation-delay:-3s;"></div>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;z-index:10;">
-            <div style="padding:16px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.7));">
-              <div style="font-family:'Space Mono';font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bottle-light);margin-bottom:4px;">Hook v3</div>
-              <div style="display:flex;gap:1px;height:12px;align-items:center;">
-                <div style="flex:1;height:50%;background:var(--bottle-light);border-radius:1px;opacity:0.6;"></div>
-                <div style="flex:1;height:80%;background:var(--bottle-light);border-radius:1px;opacity:0.8;"></div>
-                <div style="flex:1;height:40%;background:var(--bottle-light);border-radius:1px;opacity:0.5;"></div>
-                <div style="flex:1;height:90%;background:var(--bottle-light);border-radius:1px;"></div>
-                <div style="flex:1;height:55%;background:var(--bottle-light);border-radius:1px;opacity:0.6;"></div>
-                <div style="flex:1;height:70%;background:var(--bottle-light);border-radius:1px;opacity:0.7;"></div>
-                <div style="flex:1;height:30%;background:var(--bottle-light);border-radius:1px;opacity:0.4;"></div>
-                <div style="flex:1;height:65%;background:var(--bottle-light);border-radius:1px;opacity:0.7;"></div>
-              </div>
-            </div>
-          </div>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:11;opacity:0.4;">
-            <circle cx="16" cy="16" r="15" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-            <polygon points="12,9 12,23 24,16" fill="rgba(255,255,255,0.5)"/>
-          </svg>
-          <div style="position:absolute;top:8px;right:8px;z-index:11;"><span class="phone-overlay-tag">1:1</span></div>
+        <div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166860/BIGGIE_BY_RUFF_CYCLES_MASTER_9-16_spktym.mp4')">
+          <video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166860/BIGGIE_BY_RUFF_CYCLES_MASTER_9-16_spktym.mp4" muted autoplay loop playsinline></video>
+          <div style="position:absolute;top:8px;right:8px;z-index:11;"><span class="phone-overlay-tag">9:16</span></div>
         </div>
         <div class="phone-home"></div>
       </div>
@@ -1748,42 +1752,24 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div class="section-badge">Nos montages</div>
       <h2 class="section-h2">Le produit, c'est la vidéo.</h2>
     </div>
-    <div class="filter-pills reveal">
-      <button class="filter-pill active">Tous</button>
-      <button class="filter-pill">E-commerce</button>
-      <button class="filter-pill">Skincare</button>
-      <button class="filter-pill">Food</button>
-      <button class="filter-pill">Fashion</button>
-      <button class="filter-pill">SaaS</button>
-    </div>
     <div class="portfolio-scroll">
       <div class="portfolio-item">
-        <div class="phone" style="width:155px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#1a1a2e,#16213e);"><div class="phone-scanline"></div><svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.15;z-index:10;position:relative;"><polygon points="9,5 9,23 23,14" fill="white"/></svg><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">E-com · Hook v1</div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">Skinlab Paris</div><div class="pi-type">UGC · 15s</div></div>
+        <div class="phone" style="width:155px;"><div class="phone-notch"></div><div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166407/372_H3_1_ossw7u.mp4')"><video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166407/372_H3_1_ossw7u.mp4" muted autoplay loop playsinline></video><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">E-com · Hook</div></div></div><div class="phone-home"></div></div>
       </div>
       <div class="portfolio-item">
-        <div class="phone" style="width:175px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#2d1b38,#1a1a2e);"><div class="phone-scanline" style="animation-delay:-0.5s;"></div><svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.15;z-index:10;position:relative;"><polygon points="9,5 9,23 23,14" fill="white"/></svg><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Skincare · Hook v2</div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">Glow Beauty</div><div class="pi-type">Testimonial · 30s</div></div>
+        <div class="phone" style="width:185px;"><div class="phone-notch"></div><div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166403/la_pe%CC%81riode_la_plus_importante_Q4_e3svhd.mp4')"><video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166403/la_pe%CC%81riode_la_plus_importante_Q4_e3svhd.mp4" muted autoplay loop playsinline></video><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Q4 · Ads</div></div></div><div class="phone-home"></div></div>
       </div>
       <div class="portfolio-item">
-        <div class="phone" style="width:195px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#0f3d21,#14532d);"><div class="phone-scanline" style="animation-delay:-1s;"></div><div style="position:absolute;inset:0;display:flex;flex-direction:column;z-index:10;"><div style="padding:8px 10px;display:flex;justify-content:space-between;"><span style="font-family:'Space Mono';font-size:7px;color:var(--bottle-light);letter-spacing:1px;">● BEST PERF.</span><span style="font-family:'Space Mono';font-size:7px;color:rgba(255,255,255,0.3);">0:32</span></div><div style="flex:1;display:flex;align-items:center;justify-content:center;"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="opacity:0.2;"><circle cx="18" cy="18" r="17" stroke="white" stroke-width="1.5"/><polygon points="14,9 14,27 28,18" fill="white"/></svg></div><div style="padding:0 10px 12px;"><div style="display:flex;gap:2px;height:16px;"><div style="flex:2;background:var(--bottle-light);opacity:0.5;border-radius:2px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Space Mono';font-size:5px;color:var(--bottle-deep);letter-spacing:1px;text-transform:uppercase;">Hook</span></div><div style="flex:4;background:rgba(255,255,255,0.1);border-radius:2px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Space Mono';font-size:5px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase;">Body</span></div><div style="flex:2;background:rgba(255,255,255,0.05);border-radius:2px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Space Mono';font-size:5px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;">CTA</span></div></div></div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">NovaTech</div><div class="pi-type">Product demo · 45s</div></div>
+        <div class="phone" style="width:195px;"><div class="phone-notch"></div><div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166404/CONCEPT_2_-_SOCIAL_ADS_mvba6q.mp4')"><video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166404/CONCEPT_2_-_SOCIAL_ADS_mvba6q.mp4" muted autoplay loop playsinline></video><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Social Ads · Concept</div></div></div><div class="phone-home"></div></div>
       </div>
       <div class="portfolio-item">
-        <div class="phone" style="width:170px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#1e293b,#0f172a);"><div class="phone-scanline" style="animation-delay:-2s;"></div><svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.15;z-index:10;position:relative;"><polygon points="9,5 9,23 23,14" fill="white"/></svg><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Fashion · Hook v1</div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">Maison Élise</div><div class="pi-type">Lookbook · 20s</div></div>
+        <div class="phone" style="width:185px;"><div class="phone-notch"></div><div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166393/jeux_du_Q4_tmstpf.mp4')"><video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166393/jeux_du_Q4_tmstpf.mp4" muted autoplay loop playsinline></video><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Q4 · Jeux</div></div></div><div class="phone-home"></div></div>
       </div>
       <div class="portfolio-item">
-        <div class="phone" style="width:155px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#2a1a0e,#1a1a1a);"><div class="phone-scanline" style="animation-delay:-2.5s;"></div><svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.15;z-index:10;position:relative;"><polygon points="9,5 9,23 23,14" fill="white"/></svg><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Food · Hook v3</div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">Bon Appétit Co</div><div class="pi-type">Recette · 60s</div></div>
+        <div class="phone" style="width:155px;"><div class="phone-notch"></div><div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166392/ANNONCE_RIDE_NATION_x_PRORIDE_1_b2fh88.mp4')"><video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166392/ANNONCE_RIDE_NATION_x_PRORIDE_1_b2fh88.mp4" muted autoplay loop playsinline></video><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Ride Nation · Annonce</div></div></div><div class="phone-home"></div></div>
       </div>
       <div class="portfolio-item">
-        <div class="phone" style="width:165px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#0a2540,#1a1a2e);"><div class="phone-scanline" style="animation-delay:-3.2s;"></div><svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.15;z-index:10;position:relative;"><polygon points="9,5 9,23 23,14" fill="white"/></svg><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">SaaS · Explainer</div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">CloudSync</div><div class="pi-type">Motion · 30s</div></div>
-      </div>
-      <div class="portfolio-item">
-        <div class="phone" style="width:155px;"><div class="phone-notch"></div><div class="phone-screen" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d);"><div class="phone-scanline" style="animation-delay:-3.8s;"></div><svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.15;z-index:10;position:relative;"><polygon points="9,5 9,23 23,14" fill="white"/></svg><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">E-com · Unboxing</div></div></div><div class="phone-home"></div></div>
-        <div class="portfolio-item-info"><div class="pi-brand">Urban Store</div><div class="pi-type">UGC · 25s</div></div>
+        <div class="phone" style="width:175px;"><div class="phone-notch"></div><div class="phone-screen" style="background:#0A0A0A;cursor:pointer;" onclick="openVideoModal('https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166860/BIGGIE_BY_RUFF_CYCLES_MASTER_9-16_spktym.mp4')"><video class="phone-video" src="https://res.cloudinary.com/dn3shjx2o/video/upload/v1771166860/BIGGIE_BY_RUFF_CYCLES_MASTER_9-16_spktym.mp4" muted autoplay loop playsinline></video><div style="position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));z-index:10;"><div class="phone-overlay-tag">Ruff Cycles · Biggie</div></div></div><div class="phone-home"></div></div>
       </div>
     </div>
   </div>
@@ -2254,5 +2240,37 @@ const counterObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
 </script>
 
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+  <button class="video-modal-close" onclick="closeVideoModal(event)">✕</button>
+  <div class="video-modal-phone" onclick="event.stopPropagation()">
+    <video id="modalVideo" controls playsinline style="width:100%;aspect-ratio:9/16;display:block;object-fit:cover;"></video>
+  </div>
+</div>
+
+<script>
+function openVideoModal(src) {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  video.src = src;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  video.play();
+}
+
+function closeVideoModal(e) {
+  if (e) e.stopPropagation();
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  video.pause();
+  video.src = '';
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeVideoModal();
+});
+</script>
 </body>
 </html>
