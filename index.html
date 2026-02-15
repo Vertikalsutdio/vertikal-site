@@ -471,41 +471,39 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   animation: fadeUp 0.7s ease-out 0.3s both;
 }
 
-.hero-trust {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.hero-logos {
   margin-top: 2rem;
   animation: fadeUp 0.7s ease-out 0.4s both;
 }
 
-.hero-trust-text {
+.hero-logos-label {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.5px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   color: var(--warm-gray);
+  display: block;
+  margin-bottom: 1rem;
 }
 
-.hero-trust-avatars {
-  display: flex;
-}
-
-.hero-trust-avatars .avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid var(--white);
-  margin-left: -8px;
+.hero-logos-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-family: 'Sora', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  color: var(--white);
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.hero-trust-avatars .avatar:first-child { margin-left: 0; }
+.hero-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%) opacity(0.5);
+  transition: all 0.3s ease;
+}
+
+.hero-logo:hover {
+  filter: grayscale(0%) opacity(1);
+}
 
 /* ===== PHONE MOCKUPS ===== */
 .phone-grid {
@@ -1443,7 +1441,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .hero-h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); letter-spacing: -1px; line-height: 1.12; }
   .hero-sub { margin-left: auto; margin-right: auto; font-size: 15px; max-width: 380px; }
   .hero-ctas { justify-content: center; }
-  .hero-trust { justify-content: center; }
+  .hero-logos { text-align: center; } .hero-logos-row { justify-content: center; }
   .hero-badge { font-size: 10px; }
   .phone-grid { margin-top: 2rem; }
   .phone-grid .phone:nth-child(1),
@@ -1471,6 +1469,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .hero-inner { padding: 2.5rem 1.25rem 2rem; }
   .hero-h1 { font-size: clamp(1.6rem, 8vw, 2.2rem); margin-bottom: 1rem; }
   .hero-sub { font-size: 14px; margin-bottom: 1.5rem; }
+  .hero-logo { height: 28px; }
+  .hero-logos-row { gap: 1rem; }
   .phone-grid { gap: 0.4rem; }
   .phone-grid .phone:nth-child(1),
   .phone-grid .phone:nth-child(3) { width: 90px !important; margin-bottom: 1rem !important; }
@@ -1519,10 +1519,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <a href="#pricing">Tarifs</a>
       <a href="#agencies">Agences</a>
       <a href="#faq">FAQ</a>
-      <a href="#pricing" class="nav-cta">Réservez votre call</a>
+      <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="nav-cta">Réservez votre call</a>
     </div>
     <div style="display:flex;align-items:center;gap:12px;">
-      <a href="#pricing" class="nav-cta-mobile">Réservez votre call</a>
+      <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="nav-cta-mobile">Réservez votre call</a>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -1536,7 +1536,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <a href="#pricing" onclick="closeMobile()">Tarifs</a>
   <a href="#agencies" onclick="closeMobile()">Agences</a>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
-  <a href="#pricing" style="margin-top:1rem;text-align:center;justify-content:center;display:inline-flex;padding:14px 28px;border-radius:10px;background:var(--bottle);color:var(--white);font-family:'Sora',sans-serif;font-weight:600;font-size:15px;" onclick="closeMobile()">Réservez votre call</a>
+  <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" style="margin-top:1rem;text-align:center;justify-content:center;display:inline-flex;padding:14px 28px;border-radius:10px;background:var(--bottle);color:var(--white);font-family:'Sora',sans-serif;font-weight:600;font-size:15px;" onclick="closeMobile()">Réservez votre call</a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -1549,18 +1549,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         1ère agence de montage<br>
         <span class="green">vidéo verticales illimité.</span>
       </h1>
-      <p class="hero-sub">1ère agence de montage vidéo verticales illimité. Abonnement mensuel · Sans engagement · Rendu en 48-72h.</p>
+      <p class="hero-sub">Abonnement mensuel · Sans engagement · Rendu en 48-72h.</p>
       <div class="hero-ctas">
         <a href="#pricing" class="btn-primary">Voir les offres</a>
       </div>
-      <div class="hero-trust">
-        <div class="hero-trust-avatars">
-          <div class="avatar" style="background: var(--bottle);">L</div>
-          <div class="avatar" style="background: #6366F1;">M</div>
-          <div class="avatar" style="background: #F59E0B;">S</div>
-          <div class="avatar" style="background: #EF4444;">C</div>
+      <div class="hero-logos">
+        <span class="hero-logos-label">Ils nous font confiance</span>
+        <div class="hero-logos-row">
+          <img src="logo-pimpant.png" alt="Pimpant" class="hero-logo">
+          <img src="logo-manhattan.png" alt="Manhattan Hot Dog" class="hero-logo">
+          <img src="logo-aps.jpeg" alt="APS" class="hero-logo">
+          <img src="logo-inetiq.jpeg" alt="Inetiq" class="hero-logo">
+          <img src="logo-thibault.jpg" alt="Thibault Rabardel" class="hero-logo" style="border-radius:50%;">
         </div>
-        <span class="hero-trust-text">Déjà adopté par des marques e-com et agences</span>
       </div>
     </div>
 
@@ -1706,7 +1707,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <div style="text-align:center;margin-bottom:3.5rem;" class="reveal">
       <div class="section-badge">Comment ça marche</div>
       <h2 class="section-h2">Trois étapes. Zéro friction.</h2>
-      <p class="section-sub">Vous envoyez, on monte, vous validez. Plus vous validez vite, plus on produit.</p>
+      <p class="section-sub">Vous envoyez, on monte, vous validez.<br>Plus vous validez vite, plus on produit.</p>
     </div>
     <div class="steps-grid">
       <div class="step-card reveal reveal-delay-1">
@@ -1870,10 +1871,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               <li>Hooks + itérations + formats</li>
               <li>Retours illimités</li>
               <li>Délai : 3-4 jours ouvrés</li>
-              <li>Garantie Flexibilité</li>
               <li>Sans engagement</li>
             </ul>
-            <button class="pc-cta outline">Réservez votre call</button>
+            <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta outline" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
           </div>
         </div>
         <div class="price-card featured reveal reveal-delay-2">
@@ -1889,10 +1889,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               <li>Monteur dédié</li>
               <li>Retours illimités</li>
               <li>Délai : 5-7 jours ouvrés</li>
-              <li>Garantie Flexibilité</li>
               <li>Sans engagement</li>
             </ul>
-            <button class="pc-cta primary">Réservez votre call</button>
+            <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta primary" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
           </div>
         </div>
         <div class="price-card reveal reveal-delay-3">
@@ -1907,9 +1906,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               <li>Monteur dédié + account manager</li>
               <li>Retours illimités</li>
               <li>Délai : 8-10 jours ouvrés</li>
-              <li>Garantie Flexibilité</li>
             </ul>
-            <button class="pc-cta outline">Réservez votre call</button>
+            <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta outline" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
           </div>
         </div>
       </div>
@@ -1917,7 +1915,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     <!-- PACK ONE-SHOT VIEW (secondary) -->
     <div class="pricing-view" id="view-packs">
-      <div class="pricing-grid" style="max-width:420px;margin:0 auto;">
+      <div class="pricing-grid" style="max-width:520px;margin:0 auto;">
         <div class="price-card featured reveal reveal-delay-1">
           <div class="pc-badge">Pack one-shot</div>
           <div class="pc-body">
@@ -1935,7 +1933,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               <li>Naming convention ads</li>
               <li>2 tours de retours</li>
             </ul>
-            <button class="pc-cta primary">Réservez votre call</button>
+            <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta primary" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
           </div>
         </div>
       </div>
@@ -1974,7 +1972,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <h2 class="agency-h2">Votre département post-prod.<br><span style="color:var(--bottle-light);">En white label.</span></h2>
         <p class="agency-p">Vos clients reçoivent les vidéos sous votre nom. On est invisible, vous êtes rentable. NDA, confidentialité totale, intégration dans vos outils.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="mailto:contact@vertikalstudio.fr" class="btn-primary" style="background:var(--white);color:var(--bottle);">Nous contacter pour devis</a>
+          <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="btn-primary" style="background:var(--white);color:var(--bottle);">Nous contacter pour devis</a>
         </div>
       </div>
       <div class="agency-right">
@@ -2109,10 +2107,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div class="faq-q" onclick="toggleFaq(this)">Je peux annuler à tout moment ? <span class="faq-q-icon">+</span></div>
       <div class="faq-a">Abonnements marques : sans engagement (sauf UNLIMITED, 3 mois recommandé). Agences : 3 à 6 mois selon l'offre. Packs one-shot : aucun engagement par nature.</div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Comment fonctionne la Garantie Flexibilité ? <span class="faq-q-icon">+</span></div>
-      <div class="faq-a">Incluse dans tous les abonnements : 1 mois de pause gratuit par trimestre, report de crédits au mois suivant, et rabais automatique au palier inférieur si vous utilisez moins de 50% de votre quota.</div>
-    </div>
   </div>
 </section>
 
@@ -2122,7 +2116,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <h2 class="final-h2">Prêt à scaler<br><span style="color:var(--bottle);">votre production vidéo ?</span></h2>
     <p class="final-p">Si vous voulez tester, démarrez avec le pack one-shot 10 créas, et basculez sur la puissance de l'abonnement illimité.</p>
     <div class="final-ctas">
-      <a href="#pricing" class="btn-primary">Réservez votre call</a>
+      <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="btn-primary">Réservez votre call</a>
     </div>
   </div>
 </section>
@@ -2153,8 +2147,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div class="footer-col-title">Contact</div>
       <ul class="footer-links">
         <li><a href="mailto:contact@vertikalstudio.fr">contact@vertikalstudio.fr</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/company/vertikalstudio" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/vertikalstudio.fr/" target="_blank">Instagram</a></li>
       </ul>
     </div>
   </div>
