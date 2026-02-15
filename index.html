@@ -192,13 +192,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 64px;
-  padding: 0 2rem;
+  padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+  padding-right: 2.5rem;
 }
 
 .nav-logo {
@@ -221,6 +220,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--warm-gray);
   margin-top: -2px;
   text-align: center;
+  padding-left: 4.5px;
 }
 
 .nav-links {
@@ -1500,6 +1500,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: rgba(255,255,255,0.25);
   margin-top: -2px;
   text-align: center;
+  padding-left: 4.5px;
 }
 
 .footer-desc {
