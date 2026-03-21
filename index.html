@@ -1088,12 +1088,73 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 0;
 }
 
+.pc-saving {
+  display: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--bottle);
+  background: var(--bottle-wash);
+  padding: 3px 10px;
+  border-radius: 100px;
+  vertical-align: middle;
+  margin-left: 4px;
+  letter-spacing: 0;
+}
+
+.pc-saving.visible {
+  display: inline-block;
+}
+
+.pc-old-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--warm-gray);
+  text-decoration: line-through;
+  min-height: 18px;
+}
+
 .pc-per {
   font-family: 'Space Mono', monospace;
   font-size: 11px;
   color: var(--warm-gray);
   margin-top: 4px;
   margin-bottom: 1.5rem;
+}
+
+/* Period toggle */
+.period-btn {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 20px;
+  border-radius: 8px;
+  color: var(--stone);
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.period-btn.active {
+  background: var(--white);
+  color: var(--charcoal);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.period-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  padding: 2px 7px;
+  border-radius: 100px;
+  background: var(--bottle-wash);
+  color: var(--bottle);
+}
+
+.period-badge.best {
+  background: var(--bottle);
+  color: var(--white);
 }
 
 .pc-features {
@@ -1568,6 +1629,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .phone-grid .phone:nth-child(2) { width: 150px !important; }
   .steps-grid { grid-template-columns: 1fr; }
   .included-grid { grid-template-columns: repeat(2, 1fr); }
+  .requete-includes { grid-template-columns: repeat(2, 1fr) !important; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
   .agency-card { grid-template-columns: 1fr; }
   .agency-left { padding: 2.5rem 2rem; }
@@ -1586,6 +1648,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 @media (max-width: 600px) {
   .hero-inner { padding: 2.5rem 1.25rem 2rem; }
+  .period-toggle { flex-wrap: wrap; justify-content: center; }
+  .period-btn { font-size: 11px; padding: 7px 12px; }
+  .period-badge { font-size: 9px; }
   .hero-h1 { font-size: clamp(1.6rem, 8vw, 2.2rem); margin-bottom: 1rem; }
   .hero-sub { font-size: 14px; margin-bottom: 1rem; }
   .hero-pill { font-size: 10px; padding: 4px 10px; }
@@ -1600,6 +1665,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .phone { border-width: 2px; border-radius: 16px; }
   .phone-notch { width: 40px; height: 14px; border-radius: 0 0 8px 8px; }
   .included-grid { grid-template-columns: 1fr; }
+  .requete-includes { grid-template-columns: 1fr !important; }
   .footer-inner { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; font-size: 14px; padding: 12px 24px; }
@@ -1764,7 +1830,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <rect x="28" y="8" width="12" height="32" rx="2"/><line x1="28" y1="18" x2="40" y2="18"/><line x1="28" y1="28" x2="40" y2="28"/>
         </svg>
         <div class="step-title">Soumettez votre requête</div>
-        <div class="step-desc">Envoyez vos rushs, scripts et brief créatif en un seul envoi. Selon votre abonnement, une requête contient de 5 à 20 vidéos à produire.</div>
+        <div class="step-desc">Envoyez vos rushs, scripts et brief créatif en un seul envoi. Une requête = 5 vidéos à produire avec hooks, variantes et formats.</div>
       </div>
       <div class="step-card reveal reveal-delay-2">
         <div class="step-num">02</div>
@@ -1825,53 +1891,68 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <div style="text-align:center;margin-bottom:3rem;" class="reveal">
       <div class="section-badge">Ce que contient une requête</div>
       <h2 class="section-h2">Une requête. Tout est inclus.</h2>
-      <p class="section-sub" style="margin-top:0.5rem;">À chaque requête, vous recevez un lot complet prêt à publier.</p>
     </div>
-    <div class="included-grid">
-      <div class="inc-card reveal reveal-delay-1">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="6" width="20" height="36" rx="2"/><line x1="14" y1="12" x2="34" y2="12"/><polygon points="21,20 21,28 28,24" fill="#14532D" stroke="none"/></svg>
-        <div class="inc-title">Montage 9:16</div>
-        <div class="inc-desc">Vidéos verticales montées pour Meta, TikTok, YouTube Shorts.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-2">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8 L12 30 C12 36 18 40 24 40 C30 40 36 36 36 30 L36 24"/><polyline points="8,14 12,8 16,14"/><circle cx="36" cy="20" r="4"/></svg>
-        <div class="inc-title">Hooks alternatifs</div>
-        <div class="inc-desc">Plusieurs accroches par concept pour tester en A/B test.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-3">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="36" height="28" rx="3"/><rect x="10" y="30" width="28" height="5" rx="1.5" fill="#14532D" opacity="0.15" stroke="none"/><line x1="14" y1="32.5" x2="34" y2="32.5"/></svg>
-        <div class="inc-title">Sous-titrage</div>
-        <div class="inc-desc">Sous-titres stylisés, animés, adaptés à votre charte.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-4">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L12 30 L18 30 L26 36 L26 12 L18 18 Z"/><path d="M32 18 C34 20 34 28 32 30" opacity="0.6"/><path d="M36 14 C40 18 40 30 36 34" opacity="0.35"/></svg>
-        <div class="inc-title">Sound design</div>
-        <div class="inc-desc">Musique, mixage, sound design adaptés au format ads.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-1">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="14" height="20" rx="2"/><rect x="17" y="14" width="14" height="20" rx="2" opacity="0.5"/><rect x="28" y="14" width="14" height="20" rx="2" opacity="0.25"/></svg>
-        <div class="inc-title">Itérations</div>
-        <div class="inc-desc">Variations de rythme, musique, CTA, ordre des séquences.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-2">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="10" opacity="0.4"/><circle cx="28" cy="20" r="10" opacity="0.4"/><circle cx="24" cy="28" r="10" opacity="0.4"/></svg>
-        <div class="inc-title">Colorimétrie</div>
-        <div class="inc-desc">Étalonnage cohérent pour un rendu professionnel.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-3">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="14" height="10" rx="2"/><rect x="8" y="20" width="14" height="10" rx="2"/><rect x="8" y="34" width="14" height="8" rx="2"/><text x="11" y="13" fill="#14532D" stroke="none" font-size="5" font-family="monospace">9:16</text><text x="12" y="27" fill="#14532D" stroke="none" font-size="5" font-family="monospace">1:1</text><text x="12" y="40" fill="#14532D" stroke="none" font-size="5" font-family="monospace">4:5</text></svg>
-        <div class="inc-title">Multi-format</div>
-        <div class="inc-desc">9:16, 1:1, 4:5 — une requête, tous les formats.</div>
-      </div>
-      <div class="inc-card reveal reveal-delay-4">
-        <svg class="inc-icon" viewBox="0 0 48 48" fill="none" stroke="#14532D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="16"/><line x1="24" y1="26" x2="32" y2="18" stroke-width="2"/><circle cx="24" cy="26" r="2.5" fill="#14532D" stroke="none"/></svg>
-        <div class="inc-title">Naming convention</div>
-        <div class="inc-desc">Fichiers nommés pour import direct dans votre ad manager.</div>
+
+    <!-- VISUAL DEFINITION (B+C mix) -->
+    <div class="reveal" style="max-width:600px;margin:0 auto 3rem;">
+      <div style="border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+        <!-- Header dark -->
+        <div style="background:var(--charcoal);padding:1.5rem 2rem;text-align:center;">
+          <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--white);">1 requête = 5 vidéos</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px;">Envoyez vos rushs et votre brief, on livre tout.</div>
+        </div>
+        <!-- Equation body -->
+        <div style="padding:1.5rem 1.25rem;background:var(--white);display:flex;align-items:center;justify-content:center;gap:0.6rem;flex-wrap:wrap;">
+          <div style="background:var(--bottle-wash);border:1px solid rgba(20,83,45,0.1);border-radius:10px;padding:12px 18px;text-align:center;min-width:70px;">
+            <div style="font-family:'Sora',sans-serif;font-weight:800;font-size:1.5rem;color:var(--bottle);line-height:1;">5</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--stone);margin-top:3px;">vidéos</div>
+          </div>
+          <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;color:var(--warm-gray);">×</div>
+          <div style="background:var(--bottle-wash);border:1px solid rgba(20,83,45,0.1);border-radius:10px;padding:12px 18px;text-align:center;min-width:70px;">
+            <div style="font-family:'Sora',sans-serif;font-weight:800;font-size:1.5rem;color:var(--bottle);line-height:1;">3</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--stone);margin-top:3px;">hooks</div>
+          </div>
+          <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;color:var(--warm-gray);">×</div>
+          <div style="background:var(--bottle-wash);border:1px solid rgba(20,83,45,0.1);border-radius:10px;padding:12px 18px;text-align:center;min-width:70px;">
+            <div style="font-family:'Sora',sans-serif;font-weight:800;font-size:1.5rem;color:var(--bottle);line-height:1;">3</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--stone);margin-top:3px;">formats</div>
+          </div>
+          <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;color:var(--warm-gray);">=</div>
+          <div style="background:var(--bottle);border-radius:10px;padding:12px 20px;text-align:center;min-width:70px;">
+            <div style="font-family:'Sora',sans-serif;font-weight:800;font-size:1.5rem;color:var(--white);line-height:1;">45</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--bottle-light);margin-top:3px;">fichiers</div>
+          </div>
+        </div>
+        <!-- Pills footer -->
+        <div style="padding:0.75rem 1.25rem 1rem;background:var(--white);border-top:1px solid var(--border-light);display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;">
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--stone);padding:4px 12px;border-radius:100px;border:1px solid var(--border);">Requêtes illimitées</span>
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--stone);padding:4px 12px;border-radius:100px;border:1px solid var(--border);">Retours illimités</span>
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--stone);padding:4px 12px;border-radius:100px;border:1px solid var(--border);">Pause à tout moment</span>
+        </div>
       </div>
     </div>
-    <!-- Mini calcul -->
-    <div style="text-align:center;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border-light);" class="reveal">
-      <p style="font-family:'Space Mono',monospace;font-size:13px;color:var(--stone);letter-spacing:0.5px;">Exemple : 1 requête Velocity (10 vidéos) × 3 hooks × 3 formats = <span style="font-family:'Sora',sans-serif;font-weight:800;color:var(--bottle);font-size:1.25rem;">90 fichiers livrés</span></p>
+
+    <!-- INCLUDED ITEMS (compact) -->
+    <div class="reveal" style="max-width:900px;margin:0 auto;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--warm-gray);text-align:center;margin-bottom:1.25rem;">Inclus dans chaque requête</div>
+      <div class="requete-includes" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;">
+        <div style="background:var(--cream);border-radius:10px;padding:1rem;text-align:center;">
+          <div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;color:var(--charcoal);margin-bottom:2px;">Montage 9:16</div>
+          <div style="font-size:11px;color:var(--stone);line-height:1.4;">Meta, TikTok, Shorts</div>
+        </div>
+        <div style="background:var(--cream);border-radius:10px;padding:1rem;text-align:center;">
+          <div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;color:var(--charcoal);margin-bottom:2px;">Sous-titrage</div>
+          <div style="font-size:11px;color:var(--stone);line-height:1.4;">Stylisé, animé, on-brand</div>
+        </div>
+        <div style="background:var(--cream);border-radius:10px;padding:1rem;text-align:center;">
+          <div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;color:var(--charcoal);margin-bottom:2px;">Sound design</div>
+          <div style="font-size:11px;color:var(--stone);line-height:1.4;">Musique, mixage, SFX</div>
+        </div>
+        <div style="background:var(--cream);border-radius:10px;padding:1rem;text-align:center;">
+          <div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;color:var(--charcoal);margin-bottom:2px;">Colorimétrie</div>
+          <div style="font-size:11px;color:var(--stone);line-height:1.4;">Étalonnage cohérent</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1893,20 +1974,30 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     <!-- ABONNEMENTS VIEW (primary) -->
     <div class="pricing-view active" id="view-abos">
+      <!-- Period toggle -->
+      <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+        <div class="period-toggle" style="display:flex;background:var(--cream);border-radius:10px;padding:4px;border:1px solid var(--border);gap:2px;">
+          <button class="period-btn active" data-period="monthly">Mensuel</button>
+          <button class="period-btn" data-period="quarterly">3 mois <span class="period-badge">-5%</span></button>
+          <button class="period-btn" data-period="biannual">6 mois <span class="period-badge">-10%</span></button>
+          <button class="period-btn" data-period="annual">12 mois <span class="period-badge best">-15%</span></button>
+        </div>
+      </div>
       <div class="pricing-grid">
         <div class="price-card reveal reveal-delay-1">
           <div class="pc-body">
             <div class="pc-name">Flow</div>
             <div class="pc-desc">Cadence maîtrisée, qualité constante</div>
-            <div class="pc-price">1 490€ <span>/mois</span></div>
+            <div class="pc-price" data-monthly="1 490" data-quarterly="1 416" data-biannual="1 341" data-annual="1 267">1 490€ <span>/mois</span> <span class="pc-saving" data-monthly="" data-quarterly="-74€" data-biannual="-149€" data-annual="-223€"></span></div>
+            <div class="pc-old-price"></div>
             <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
               <li><strong>Requêtes illimitées</strong></li>
-              <li>5 vidéos + variantes par requête</li>
               <li>1 requête active à la fois</li>
-              <li>Hooks + itérations + formats</li>
+              <li>5 vidéos + variantes par requête</li>
+              <li>Hooks + itérations + formats inclus</li>
               <li>Retours illimités</li>
-              <li>Sans engagement</li>
+              <li>Pause à tout moment</li>
             </ul>
             <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--bottle);background:var(--bottle-wash);border-radius:8px;padding:10px 14px;margin-bottom:1.5rem;text-align:center;line-height:1.5;">Vous économisez <strong>~2 700€/mois</strong> par rapport à un monteur salarié</div>
             <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta outline" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
@@ -1917,16 +2008,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="pc-body">
             <div class="pc-name">Velocity</div>
             <div class="pc-desc">Volume accru, itérations créatives</div>
-            <div class="pc-price">2 490€ <span>/mois</span></div>
+            <div class="pc-price" data-monthly="2 490" data-quarterly="2 366" data-biannual="2 241" data-annual="2 117">2 490€ <span>/mois</span> <span class="pc-saving" data-monthly="" data-quarterly="-124€" data-biannual="-249€" data-annual="-373€"></span></div>
+            <div class="pc-old-price"></div>
             <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
               <li><strong>Requêtes illimitées</strong></li>
-              <li>10 vidéos + variantes par requête</li>
-              <li>1 requête active à la fois</li>
-              <li>Hooks + itérations + formats</li>
+              <li>2 requêtes actives en parallèle</li>
+              <li>5 vidéos + variantes par requête</li>
+              <li>Hooks + itérations + formats inclus</li>
               <li>Monteur dédié</li>
               <li>Retours illimités</li>
-              <li>Sans engagement</li>
+              <li>Pause à tout moment</li>
             </ul>
             <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--bottle);background:var(--bottle-wash);border-radius:8px;padding:10px 14px;margin-bottom:1.5rem;text-align:center;line-height:1.5;">Vous économisez <strong>~1 700€/mois</strong> par rapport à un monteur salarié</div>
             <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta primary" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
@@ -1936,15 +2028,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="pc-body">
             <div class="pc-name">Unlimited</div>
             <div class="pc-desc">Volume élevé, scaling ads + organique</div>
-            <div class="pc-price">3 990€ <span>/mois</span></div>
-            <div class="pc-per">3 mois recommandé</div>
+            <div class="pc-price" data-monthly="3 990" data-quarterly="3 791" data-biannual="3 591" data-annual="3 392">3 990€ <span>/mois</span> <span class="pc-saving" data-monthly="" data-quarterly="-199€" data-biannual="-399€" data-annual="-598€"></span></div>
+            <div class="pc-old-price"></div>
+            <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
               <li><strong>Requêtes illimitées</strong></li>
-              <li>20 vidéos + variantes par requête</li>
-              <li>1 requête active à la fois</li>
-              <li>Hooks + itérations + formats</li>
+              <li>4 requêtes actives en parallèle</li>
+              <li>5 vidéos + variantes par requête</li>
+              <li>Hooks + itérations + formats inclus</li>
               <li>Monteur dédié + account manager</li>
               <li>Retours illimités</li>
+              <li>Pause à tout moment</li>
             </ul>
             <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--bottle);background:var(--bottle-wash);border-radius:8px;padding:10px 14px;margin-bottom:1.5rem;text-align:center;line-height:1.5;">Vous économisez <strong>~4 400€/mois</strong> par rapport à 2 monteurs salariés</div>
             <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta outline" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
@@ -1959,19 +2053,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <div class="price-card featured reveal reveal-delay-1">
           <div class="pc-badge">Pack one-shot</div>
           <div class="pc-body">
-            <div class="pc-name">Pack Découverte</div>
-            <div class="pc-desc">10 créas pour tester la puissance Vertikal</div>
-            <div class="pc-price">790€ <span>HT</span></div>
+            <div class="pc-name">Pack Test</div>
+            <div class="pc-desc">Testez Vertikal sans engagement</div>
+            <div class="pc-price">350€ <span>HT</span></div>
             <div class="pc-per">Sans engagement</div>
             <ul class="pc-features">
-              <li>10 vidéos + variantes</li>
+              <li>3 vidéos + variantes</li>
               <li>Hooks alternatifs inclus</li>
-              <li>Itérations + déclinaisons format</li>
               <li>Sous-titrage stylisé</li>
               <li>Sound design & musique</li>
-              <li>Briefing dédié en début de requête</li>
-              <li>Naming convention ads</li>
-              <li>2 tours de retours</li>
+              <li>Export multi-format</li>
+              <li>Retours illimités</li>
             </ul>
             <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="pc-cta primary" style="text-align:center;text-decoration:none;display:block;">Réservez votre call</a>
           </div>
@@ -2126,15 +2218,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">C'est quoi une requête ? <span class="faq-q-icon">+</span></div>
-      <div class="faq-a">Une requête = un envoi de rushs, scripts et briefs. Selon votre abonnement, elle contient 5 vidéos (Flow), 10 vidéos (Velocity) ou 20 vidéos (Unlimited). On produit tout à partir de là : vidéos montées + hooks alternatifs + itérations + déclinaisons format. Une seule requête est active à la fois — une fois validée, la suivante est prise en charge.</div>
+      <div class="faq-a">Une requête = un envoi de rushs, scripts et briefs pour 5 vidéos. On produit tout à partir de là : vidéos montées + hooks alternatifs + itérations + déclinaisons format. Selon votre abonnement, vous avez 1, 2 ou 4 requêtes en production en parallèle. Une fois validée, la suivante est prise en charge.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Y a-t-il une limite au nombre de requêtes ? <span class="faq-q-icon">+</span></div>
-      <div class="faq-a">Non. Vous pouvez soumettre autant de requêtes que vous voulez dans le mois. On les traite une à la fois — plus vous validez vite, plus on enchaîne. Un client Velocity qui valide en 24h peut produire 30 à 40 vidéos par mois.</div>
+      <div class="faq-a">Non. Vous pouvez soumettre autant de requêtes que vous voulez dans le mois. Plus vous validez vite, plus on enchaîne. Un client Unlimited avec 4 requêtes en parallèle peut produire 60+ vidéos par mois.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Quelle est la différence entre une requête et une requête active ? <span class="faq-q-icon">+</span></div>
-      <div class="faq-a">Une requête est un envoi de rushs et briefs contenant 5 à 20 vidéos selon votre abonnement. Une requête active est celle en cours de production. Vous avez une seule requête active à la fois — une fois validée, la suivante est prise en charge immédiatement. Il n'y a aucune limite au nombre de requêtes que vous pouvez soumettre dans le mois.</div>
+      <div class="faq-a">Une requête contient toujours 5 vidéos. Une requête active est celle en cours de production. Flow : 1 requête active à la fois. Velocity : 2 en parallèle. Unlimited : 4 en parallèle. Une fois validée, la suivante est prise en charge immédiatement. Il n'y a aucune limite au nombre de requêtes que vous pouvez soumettre dans le mois.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Qu'est-ce que je dois fournir ? <span class="faq-q-icon">+</span></div>
@@ -2142,11 +2234,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Combien de temps pour recevoir mes vidéos ? <span class="faq-q-icon">+</span></div>
-      <div class="faq-a">Pack Découverte : 5-7 jours ouvrés. Abonnements : de 3 à 10 jours ouvrés selon la taille de la requête. Plus la requête est petite, plus c'est rapide.</div>
+      <div class="faq-a">Pack Test : 48-72h ouvrées. Abonnements : proportionnel à la taille de la requête, généralement 3 à 7 jours ouvrés.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Je peux tester sans m'abonner ? <span class="faq-q-icon">+</span></div>
-      <div class="faq-a">Oui. Le Pack Découverte à 790€ vous permet de tester avec 10 vidéos, sans engagement. Si ça colle, passez en abonnement.</div>
+      <div class="faq-a">Oui. Le Pack Test à 350€ vous permet de tester avec 3 vidéos, sans engagement. Si ça colle, passez en abonnement.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">C'est quoi le white label pour les agences ? <span class="faq-q-icon">+</span></div>
@@ -2163,7 +2255,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <section class="final-cta-section grain halftone" style="position:relative;overflow:hidden;">
   <div class="final-card reveal">
     <h2 class="final-h2">Prêt à scaler<br><span style="color:var(--bottle);">votre production vidéo ?</span></h2>
-    <p class="final-p">Si vous voulez tester, démarrez avec le pack one-shot 10 créas, et basculez sur la puissance de l'abonnement illimité.</p>
+    <p class="final-p">Testez avec le Pack Test à 350€, et basculez sur la puissance de l'abonnement illimité.</p>
     <div class="final-ctas">
       <a href="https://calendar.app.google/hf5nyhQVrPb6x9Q48" target="_blank" class="btn-primary">Réservez votre call</a>
     </div>
@@ -2180,7 +2272,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <div>
       <div class="footer-col-title">Offres</div>
       <ul class="footer-links">
-        <li><a href="#pricing">Pack Découverte — 790€</a></li>
+        <li><a href="#pricing">Pack Test — 350€</a></li>
         <li><a href="#pricing">Abonnements</a></li>
         <li><a href="#agencies">Agences</a></li>
       </ul>
@@ -2248,6 +2340,38 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
     const view = btn.dataset.view;
     document.querySelectorAll('.pricing-view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-' + view).classList.add('active');
+  });
+});
+
+// ===== PERIOD TOGGLE =====
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const period = btn.dataset.period;
+    const labels = { monthly: 'Sans engagement', quarterly: 'Engagement 3 mois', biannual: 'Engagement 6 mois', annual: 'Engagement 12 mois' };
+    document.querySelectorAll('.pc-price[data-monthly]').forEach(el => {
+      const price = el.dataset[period];
+      const monthly = el.dataset.monthly;
+      const saving = el.querySelector('.pc-saving');
+      const savingVal = saving.dataset[period];
+      el.childNodes[0].textContent = price + '€ ';
+      if (savingVal) {
+        saving.textContent = savingVal;
+        saving.classList.add('visible');
+      } else {
+        saving.classList.remove('visible');
+      }
+      const oldPrice = el.parentElement.querySelector('.pc-old-price');
+      if (period !== 'monthly') {
+        oldPrice.textContent = monthly + '€/mois';
+      } else {
+        oldPrice.textContent = '';
+      }
+    });
+    document.querySelectorAll('#view-abos .pc-per').forEach(el => {
+      el.textContent = labels[period];
+    });
   });
 });
 
