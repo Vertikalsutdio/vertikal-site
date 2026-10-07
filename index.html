@@ -31,7 +31,7 @@
   --line-strong: #343734;
   --text: #EDEDE8;
   --muted: #9A9C97;
-  --faint: #6E716C;
+  --faint: #7F827D;
   --accent: #74D69A;
   --accent-ink: #08200F;
   --radius-media: 6px;
@@ -247,11 +247,11 @@ section { scroll-margin-top: 80px; }
 /* Pricing */
 .pricing-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .pricing-head .lead { margin-top: 16px; }
-.period { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px; }
-.period button { height: 44px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
-.period button:hover { color: var(--text); }
-.period button[aria-pressed="true"] { background: var(--bg-raised); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
-.period small { color: var(--accent); font-size: 12px; font-variant-numeric: tabular-nums; }
+.segmented { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px; }
+.segmented button { height: 44px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
+.segmented button:hover { color: var(--text); }
+.segmented button[aria-pressed="true"] { background: var(--bg-raised); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.segmented small { color: var(--accent); font-size: 12px; font-variant-numeric: tabular-nums; }
 
 .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 64px; }
 .plan { display: flex; flex-direction: column; padding: 40px clamp(20px, 3vw, 44px) 8px; border-top: 2px solid transparent; }
@@ -269,6 +269,7 @@ section { scroll-margin-top: 80px; }
 .plan-price span { color: var(--muted); }
 .plan-meta { margin-top: 10px; font-size: 14px; color: var(--faint); min-height: 22px; font-variant-numeric: tabular-nums; }
 .plan-meta s { margin-right: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .plan ul { flex: 1; list-style: none; margin-top: 28px; display: grid; gap: 10px; align-content: start; color: var(--muted); font-size: 15px; }
 .plan ul li:first-child { color: var(--text); font-weight: 500; }
 .plan-saving { min-height: 66px; margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
@@ -409,8 +410,8 @@ section { scroll-margin-top: 80px; }
   .equation { gap: 2px; }
   .work-track figure { width: 62vw; }
   .work-track figure.wide { width: 86vw; }
-  .period.filters { width: auto; max-width: 100%; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
-  .period.filters button { flex-direction: row; gap: 6px; white-space: nowrap; padding: 0 14px; }
+  .filters { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .filters button { white-space: nowrap; padding: 0 14px; }
   .pricing-head { align-items: flex-start; }
   .period { width: 100%; justify-content: space-between; }
   .period button { padding: 0 10px; flex-direction: column; justify-content: center; gap: 0; line-height: 1.15; font-size: 13px; }
@@ -565,7 +566,7 @@ section { scroll-margin-top: 80px; }
           <h2>Le produit, c’est la vidéo.</h2>
           <p class="lead">Une sélection de montages livrés pour nos clients. Cliquez pour les voir en entier, avec le son.</p>
         </div>
-        <div class="period filters reveal" role="group" aria-label="Filtrer les montages">
+        <div class="segmented filters reveal" role="group" aria-label="Filtrer les montages">
           <button type="button" data-filter="all" aria-pressed="true">Tout <small>17</small></button>
           <button type="button" data-filter="ecom" aria-pressed="false">E-commerce <small>7</small></button>
           <button type="button" data-filter="b2b" aria-pressed="false">Experts &amp; B2B <small>8</small></button>
@@ -654,19 +655,20 @@ section { scroll-margin-top: 80px; }
         <h2>Un abonnement.<br>Requêtes illimitées.</h2>
         <p class="lead">Sans engagement sur le mensuel. Résiliable à tout moment.</p>
       </div>
-      <div class="period reveal" role="group" aria-label="Durée d'engagement">
+      <div class="segmented period reveal" role="group" aria-label="Durée d'engagement">
         <button type="button" data-period="monthly" aria-pressed="true">Mensuel</button>
         <button type="button" data-period="quarterly" aria-pressed="false">3 mois <small>-5%</small></button>
         <button type="button" data-period="biannual" aria-pressed="false">6 mois <small>-10%</small></button>
         <button type="button" data-period="annual" aria-pressed="false">12 mois <small>-15%</small></button>
       </div>
     </div>
+    <p class="sr-only" id="priceLive" aria-live="polite"></p>
     <div class="plans">
       <div class="plan reveal" data-delay="1" data-prices="1640,1558,1476,1394">
         <div class="plan-name"><h3>Flow</h3></div>
         <p class="plan-desc">Cadence maîtrisée, qualité constante.</p>
         <div class="plan-price"><strong data-price>1&#8239;640&nbsp;€</strong><span>/mois</span></div>
-        <p class="plan-meta" data-meta aria-live="polite">Sans engagement</p>
+        <p class="plan-meta" data-meta>Sans engagement</p>
         <ul>
           <li>1 requête active à la fois</li>
           <li>Requêtes illimitées</li>
@@ -682,7 +684,7 @@ section { scroll-margin-top: 80px; }
         <div class="plan-name"><h3>Velocity</h3><em>Recommandé</em></div>
         <p class="plan-desc">Volume accru, itérations créatives.</p>
         <div class="plan-price"><strong data-price>2&#8239;740&nbsp;€</strong><span>/mois</span></div>
-        <p class="plan-meta" data-meta aria-live="polite">Sans engagement</p>
+        <p class="plan-meta" data-meta>Sans engagement</p>
         <ul>
           <li>2 requêtes actives en parallèle</li>
           <li>Requêtes illimitées</li>
@@ -699,7 +701,7 @@ section { scroll-margin-top: 80px; }
         <div class="plan-name"><h3>Unlimited</h3></div>
         <p class="plan-desc">Volume élevé, scaling ads et organique.</p>
         <div class="plan-price"><strong data-price>4&#8239;390&nbsp;€</strong><span>/mois</span></div>
-        <p class="plan-meta" data-meta aria-live="polite">Sans engagement</p>
+        <p class="plan-meta" data-meta>Sans engagement</p>
         <ul>
           <li>4 requêtes actives en parallèle</li>
           <li>Requêtes illimitées</li>
@@ -875,9 +877,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(fals
 const fmt = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
 const periods = ['monthly', 'quarterly', 'biannual', 'annual'];
 const periodLabels = { monthly: 'Sans engagement', quarterly: 'Engagement 3 mois', biannual: 'Engagement 6 mois', annual: 'Engagement 12 mois' };
-document.querySelectorAll('.period button').forEach(btn => {
+// Scoped to [data-period] so the portfolio filters (same pill styling) never trigger it
+const periodButtons = document.querySelectorAll('button[data-period]');
+periodButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.period button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    periodButtons.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
     const period = btn.dataset.period;
     const i = periods.indexOf(period);
     document.querySelectorAll('.plan[data-prices]').forEach(plan => {
@@ -890,11 +894,13 @@ document.querySelectorAll('.period button').forEach(btn => {
       if (i > 0) {
         const old = document.createElement('s');
         old.textContent = fmt.format(prices[0]);
-        meta.append(old, periodLabels[period]);
+        meta.append(old, ' ', periodLabels[period]);
       } else {
         meta.textContent = periodLabels[period];
       }
     });
+    const names = [...document.querySelectorAll('.plan[data-prices]')].map(plan => plan.querySelector('h3').textContent + ' ' + plan.querySelector('[data-price]').textContent);
+    document.getElementById('priceLive').textContent = periodLabels[period] + ' : ' + names.join(', ') + ' par mois.';
   });
 });
 
@@ -910,7 +916,8 @@ if (!reduceMotion) {
       }
     });
   }, { threshold: 0.15 });
-  document.querySelectorAll('.clip video, .mark video').forEach(v => videoObserver.observe(v));
+  const phone = window.matchMedia('(max-width: 767px)').matches;
+  document.querySelectorAll(phone ? '.work-track .clip video, .mark video' : '.clip video, .mark video').forEach(v => videoObserver.observe(v));
 }
 
 // Full video with sound in a native dialog
@@ -936,6 +943,7 @@ playerVideo.addEventListener('error', () => {
 });
 
 // Portfolio filters
+let workST = null;
 const workTrack = document.getElementById('workTrack');
 document.querySelectorAll('.filters button').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -943,8 +951,35 @@ document.querySelectorAll('.filters button').forEach(btn => {
     const f = btn.dataset.filter;
     workTrack.querySelectorAll('figure').forEach(fig => { fig.hidden = f !== 'all' && fig.dataset.cat !== f; });
     workTrack.scrollLeft = 0;
-    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    // The pinned pan length depends on how many edits are shown: recompute it,
+    // then bring the viewer back to the start of the reel so the page never jumps into a gap
+    if (workST) {
+      // Inside or past the pinned zone: go back to its start (which never moves), then re-measure
+      // only this trigger on the next frame and land on the first edit with the reel reset
+      const st = workST;
+      const start = st.start;
+      const inPin = window.scrollY > start;
+      if (inPin) window.scrollTo({ top: start, behavior: 'instant' });
+      requestAnimationFrame(() => {
+        st.refresh();
+        st.animation.progress(0);
+        if (inPin) window.scrollTo({ top: st.start, behavior: 'instant' });
+      });
+    }
   });
+});
+// Keyboard: when a clip of the pinned reel gets focus, scroll so the pan brings it on screen
+workTrack.addEventListener('focusin', e => {
+  if (!workST) return;
+  const fig = e.target.closest('figure');
+  if (!fig) return;
+  document.getElementById('workPin').scrollLeft = 0;
+  const first = [...workTrack.querySelectorAll('figure')].find(f => !f.hidden);
+  const length = workST.end - workST.start;
+  const offset = fig.offsetLeft - first.offsetLeft;
+  const progress = Math.min(1, Math.max(0, offset / Math.max(1, length)));
+  window.scrollTo({ top: workST.start + progress * length, behavior: 'instant' });
+  workST.animation.progress(progress);
 });
 document.getElementById('playerClose').addEventListener('click', () => player.close());
 player.addEventListener('click', e => { if (e.target === player) player.close(); });
@@ -961,9 +996,11 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal, .deliverables').forEach(el => revealObserver.observe(el));
 
-// The 45 counts up while the deliverables grid fills in
+// The 45 counts up when the equation comes into view (it starts at 0 only if it was below the fold)
 const eqTotal = document.getElementById('eqTotal');
-if (!reduceMotion) {
+const equation = eqTotal.closest('.equation');
+if (!reduceMotion && equation.getBoundingClientRect().top > window.innerHeight) {
+  eqTotal.textContent = '0';
   new IntersectionObserver(([entry], obs) => {
     if (!entry.isIntersecting) return;
     obs.disconnect();
@@ -975,7 +1012,7 @@ if (!reduceMotion) {
       if (t < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }).observe(document.getElementById('deliverables'));
+  }, { threshold: 0.5 }).observe(equation);
 }
 
 // Work: pin the section and pan the reel horizontally with scroll (desktop only)
@@ -988,20 +1025,20 @@ window.addEventListener('load', () => {
   gsap.matchMedia().add('(min-width: 1024px)', () => {
       work.classList.add('pan');
       const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
-      gsap.to(track, {
+      workST = gsap.to(track, {
         x: () => -distance(),
         ease: 'none',
         scrollTrigger: {
           trigger: work,
           start: 'top top',
-          end: () => '+=' + distance(),
+          end: () => '+=' + Math.max(1, distance()),
           pin: '#workPin',
           scrub: 0.6,
           invalidateOnRefresh: true,
           onUpdate: self => { progress.style.transform = 'scaleX(' + self.progress + ')'; }
         }
-      });
-      return () => work.classList.remove('pan');
+      }).scrollTrigger;
+      return () => { workST = null; work.classList.remove('pan'); };
   });
 });
 </script>
