@@ -151,10 +151,14 @@ p { text-wrap: pretty; }
 /* Proof row */
 .proof { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; z-index: 2; background: var(--bg); }
 .proof-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-top: 28px; padding-bottom: 28px; flex-wrap: wrap; }
-.proof-logos { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.proof-logos p { color: var(--faint); font-size: 14px; margin-right: 6px; }
-.proof-logos img { width: 44px; height: 44px; object-fit: cover; border-radius: var(--radius-media); filter: grayscale(1) contrast(1.05); opacity: 0.8; transition: filter 0.3s var(--ease), opacity 0.3s var(--ease); }
-.proof-logos img:hover { filter: none; opacity: 1; }
+.proof-label { color: var(--muted); font-size: 15px; }
+/* Client logos: one continuous loop, white monochrome, paused on hover */
+.logos { display: flex; overflow: hidden; padding: 4px 0 30px; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+.logos-track { flex: none; display: flex; align-items: center; gap: clamp(48px, 6vw, 88px); padding-right: clamp(48px, 6vw, 88px); list-style: none; }
+.logos-track li { flex: none; display: flex; align-items: center; height: 56px; opacity: 0.72; transition: opacity 0.3s var(--ease); }
+.logos-track li:hover { opacity: 1; }
+.logos-track img { width: auto; filter: brightness(0) invert(1); }
+.logo-lockup { gap: 9px; color: #fff; font-weight: 600; font-size: 21px; letter-spacing: -0.02em; }
 .proof-stats { display: flex; gap: clamp(28px, 4vw, 56px); }
 .stat strong { display: block; font-size: 28px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stat span { color: var(--faint); font-size: 14px; }
@@ -350,6 +354,7 @@ section { scroll-margin-top: 80px; }
 .player-close:hover { border-color: var(--text); }
 
 /* Motion (content stays visible without JS or with reduced motion) */
+@keyframes logos { to { transform: translateX(-100%); } }
 @keyframes feed { to { transform: translateY(calc(-100% / 3 - var(--feed-gap) / 3)); } }
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
@@ -357,6 +362,8 @@ section { scroll-margin-top: 80px; }
 @keyframes tick { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
   .feed-track { animation: feed var(--dur, 48s) linear infinite; }
+  .logos-track { animation: logos 45s linear infinite; }
+  .logos:hover .logos-track { animation-play-state: paused; }
   .feed-col:nth-child(2) .feed-track { animation-direction: reverse; }
   .feed:hover .feed-track { animation-play-state: paused; }
   .feed { animation: fade 1.6s var(--ease) 0.2s both; }
@@ -378,6 +385,9 @@ section { scroll-margin-top: 80px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .logos { flex-wrap: wrap; justify-content: center; -webkit-mask-image: none; mask-image: none; }
+  .logos-track { flex-wrap: wrap; justify-content: center; padding: 0 var(--gutter); row-gap: 20px; }
+  .logos-track[aria-hidden] { display: none; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
 
@@ -403,9 +413,10 @@ section { scroll-margin-top: 80px; }
   .feed { height: 380px; gap: 8px; }
   .feed-track { --feed-gap: 8px; }
   .proof-inner { flex-direction: column; align-items: flex-start; }
-  .proof-logos p { width: 100%; margin: 0 0 4px; }
   .proof-stats { width: 100%; justify-content: space-between; gap: 16px; }
   .stat strong { font-size: 22px; }
+  .logos-track { gap: 36px; padding-right: 36px; zoom: 0.78; }
+  .logos { padding-bottom: 22px; }
   .stat span { font-size: 13px; }
   .equation { gap: 2px; }
   .work-track figure { width: 62vw; }
@@ -494,19 +505,16 @@ section { scroll-margin-top: 80px; }
 
 <div class="proof">
   <div class="wrap proof-inner">
-    <div class="proof-logos">
-      <p>Ils nous confient leurs créas</p>
-      <img src="logo-pimpant.png" alt="Pimpant" width="44" height="44">
-      <img src="logo-manhattan.png" alt="Manhattan Hot Dog" width="44" height="44">
-      <img src="logo-aps.jpeg" alt="APS" width="44" height="44">
-      <img src="logo-inetiq.jpeg" alt="Inetiq" width="44" height="44">
-      <img src="logo-thibault.jpg" alt="Thibault Rabardel" width="44" height="44">
-    </div>
+    <p class="proof-label">Ils nous confient leurs créas</p>
     <div class="proof-stats">
       <div class="stat"><strong>3&nbsp;000+</strong><span>vidéos livrées</span></div>
       <div class="stat"><strong>48h</strong><span>délai moyen</span></div>
       <div class="stat"><strong>97%</strong><span>de satisfaction</span></div>
     </div>
+  </div>
+  <div class="logos" aria-label="Nos clients">
+    <ul class="logos-track"><li><img src="media/logos/domitys.svg" alt="Domitys" style="height:36px" loading="lazy"></li><li><img src="media/logos/manhattan.png" alt="Manhattan Hot Dog" style="height:48px" loading="lazy"></li><li><img src="media/logos/emilys.svg" alt="Emily’s Pillow" style="height:34px" loading="lazy"></li><li><img src="media/logos/ruff.svg" alt="Ruff Cycles" style="height:22px" loading="lazy"></li><li class="logo-lockup"><img src="media/logos/dentistry.svg" alt="" style="height:26px"><span>DentistryGPT</span></li><li><img src="media/logos/bump.png" alt="Bump Pinball" style="height:26px" loading="lazy"></li><li><img src="media/logos/pimpant.png" alt="Pimpant" style="height:34px" loading="lazy"></li><li class="logo-lockup"><img src="media/logos/smalk.png" alt="" style="height:24px"><span>Smalk</span></li><li><img src="media/logos/btrfly.png" alt="Btrfly Digital" style="height:30px" loading="lazy"></li><li><img src="media/logos/aps.png" alt="APS" style="height:28px" loading="lazy"></li><li><img src="media/logos/inetiq.png" alt="Inetiq" style="height:30px" loading="lazy"></li></ul>
+    <ul class="logos-track" aria-hidden="true"><li><img src="media/logos/domitys.svg" alt="" style="height:36px" loading="lazy"></li><li><img src="media/logos/manhattan.png" alt="" style="height:48px" loading="lazy"></li><li><img src="media/logos/emilys.svg" alt="" style="height:34px" loading="lazy"></li><li><img src="media/logos/ruff.svg" alt="" style="height:22px" loading="lazy"></li><li class="logo-lockup"><img src="media/logos/dentistry.svg" alt="" style="height:26px"><span>DentistryGPT</span></li><li><img src="media/logos/bump.png" alt="" style="height:26px" loading="lazy"></li><li><img src="media/logos/pimpant.png" alt="" style="height:34px" loading="lazy"></li><li class="logo-lockup"><img src="media/logos/smalk.png" alt="" style="height:24px"><span>Smalk</span></li><li><img src="media/logos/btrfly.png" alt="" style="height:30px" loading="lazy"></li><li><img src="media/logos/aps.png" alt="" style="height:28px" loading="lazy"></li><li><img src="media/logos/inetiq.png" alt="" style="height:30px" loading="lazy"></li></ul>
   </div>
 </div>
 
